@@ -1,0 +1,103 @@
+<html> <!-- CHANGE TO JSP, HTML FOR EASIER CODING -->
+
+    <head>
+        <title> Login </title>
+
+        <link rel="stylesheet" type="text/css" href="css/styles.css" /> <!-- EXTERNAL STYLESHEET -->
+
+        <!-- JQUERY LIB -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    </head>
+    <body>
+    <center>
+
+        <div class="webViewGrid">
+
+            <!-- NOT USED IN LOGIN
+                  <div class="naviBar">
+            
+                    <div class="navIcon">
+            
+                      <! class: navIcon | Parent: naviBar | Type: Div, img tag container >
+                      <img src="img/logo.png" width="50" />
+            
+                    </div>
+            
+                    <div class="navItem">
+            
+                    </div>
+            
+                    <div class="navUserItem">
+            
+                    </div>
+            
+                  </div>
+            -->
+
+            <div class="formGrid">
+                <div class="form">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <a href="index.html" class="font-black">
+                            <img src="img/logo.png" width="150"/><br />
+                            <label class="title">Pyramid</label>
+                        </a>
+                        <hr class="sep" /><br />
+                        <label>Email</label><br />
+                        <input type="text" id="email" name="email" class="border-bottom" /><br /><br />
+                        <label>Password</label><br />
+                        <input type="password" id="password" name="pasword" class="border-bottom" /><br /><br /><br />
+                        <input type="hidden" id="action" value="login"/>
+                        <button type="submit" id="submit" class="borders white button">Login</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </center>
+</body>
+<script>
+    $(function () {
+        $.get("action/member", {
+            action: "check_login_status",
+        }, function (result) {
+            if (result.login === "1") {
+                window.location.href = "index.html";
+            }
+        });
+    });
+    
+    document.getElementById("submit").addEventListener("click", function (event) {
+        event.preventDefault();
+    });
+
+    $("#submit").click(function () {
+        $.post("action/member", {
+            action: "login",
+            email: $("#email").val(),
+            password: $("#password").val()
+        }, function (result) {
+            if (result.result === "success") {
+                alert("Login Succeed!");
+                window.location.href = "index.html";
+            } else if (result.result === "wrong_email_or_password") {
+                alert("Wrong email or password!");
+            } else if (result.result === "has_been_login") {
+                alert("You has login, please logout first!")
+            } else {
+                alert("Login Fail!");
+            }
+        });
+    });
+
+    function dump(obj) {
+        var out = '';
+        for (var i in obj) {
+            out += i + ": " + obj[i] + "\n";
+        }
+
+        alert(out);
+    }
+</script>
+</html>

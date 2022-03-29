@@ -1,0 +1,150 @@
+<html> <!-- CHANGE TO JSP, HTML FOR EASIER CODING -->
+
+    <head>
+        <title> Register </title>
+
+        <link rel="stylesheet" type="text/css" href="css/styles.css" /> <!-- EXTERNAL STYLESHEET -->
+
+        <!-- JQUERY LIB -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+    </head>
+    <body>
+    <center>
+
+        <div class="webViewGrid">
+
+            <!-- NOT USED IN LOGIN
+                  <div class="naviBar">
+            
+                    <div class="navIcon">
+            
+                      <! class: navIcon | Parent: naviBar | Type: Div, img tag container >
+                      <img src="img/logo.png" width="50" />
+            
+                    </div>
+            
+                    <div class="navItem">
+            
+                    </div>
+            
+                    <div class="navUserItem">
+            
+                    </div>
+            
+                  </div>
+            -->
+
+            <div class="formGrid">
+                <div class="form">
+                    <form action="action/member" method="post" enctype="multipart/form-data">
+                        <a href="index.html" class="font-black">
+                            <img src="img/logo.png" width="150"/><br />
+                            <label class="title">Welcome to Pyramid</label>
+                        </a>
+                        <hr class="sep" /><br />
+                        <table class="regTable">
+                            <tr>
+                                <td>
+                                    <label>Email</label><br />
+                                    <input id="email" type="text" name="email" class="border-bottom" /><br /><br />
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <label>Password</label><br />
+
+                                    <input id="password" type="password" name="password" class="border-bottom" /><br /><br />
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    <label>Verify Password</label><br />
+
+                                    <input id="veriPasswod"type="password" name="veriPassword" class="border-bottom" /><br /><br />
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    <label>Nick Name</label><br />
+
+                                    <input id="nName" type="text" name="nName" class="border-bottom" /><br /><br /><br />
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <input type="hidden" id="action" value="register"/>
+
+                                    <button type="reset" class="borders white resetbutton">Reset</button>
+
+                                    <button type="submit" id="submit" class="borders white regbutton">Register</button>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </center>
+</body>
+<script>
+    $(function () {
+        $.get("action/member", {
+            action: "check_login_status",
+        }, function (result) {
+            if (result.login === "1") {
+                window.location.href = "index.html";
+            }
+        });
+    });
+    
+    document.getElementById("submit").addEventListener("click", function (event) {
+        event.preventDefault();
+    });
+
+    $("#submit").click(function () {
+        $.post("action/member", {
+            action: "register",
+            email: $("#email").val(),
+            password: $("#password").val(),
+            verify_password: $("#veriPasswod").val(),
+            nickname: $("#nName").val()
+        }, function (result) {
+            if (result.result === "success") {
+                alert("Register Succeed!");
+                window.location.href = "index.html";
+            } else if (result.result === "email_have_been_register") {
+                alert("This email have been registered!");
+            } else if (result.result === "has_been_login") {
+                alert("You has login, please logout first!")
+            } else {
+                alert("Register Fail!");
+            }
+        });
+    });
+
+    function dump(obj) {
+        var out = '';
+        for (var i in obj) {
+            out += i + ": " + obj[i] + "\n";
+        }
+
+        alert(out);
+    }
+</script>
+</html>

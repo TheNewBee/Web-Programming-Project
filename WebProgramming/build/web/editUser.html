@@ -1,0 +1,139 @@
+<html> <!-- CHANGE TO JSP, HTML FOR EASIER CODING -->
+
+    <head>
+        <title> <!-- INSERT TITLE EITHER DYNAMICALLY OR STATIC --> </title>
+
+        <link rel="stylesheet" type="text/css" href="css/styles.css" /> <!-- EXTERNAL STYLESHEET -->
+
+        <!-- JQUERY LIB -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    </head>
+    <body>
+    <center>
+
+        <div class="webViewGrid">
+
+
+            <div class="formGrid">
+                <div class="form">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <a href="index.html" class="font-black">
+                            <img src="img/logo.png" width="150"/><br />
+                            <label class="title">Username</label>
+                        </a>
+                        <hr class="sep" /><br />
+                        <table class="regTable">
+                            <tr>
+                                <td>
+                                    <label>Current Password</label><br />
+
+                                    <input type="password" id="cPassword" name="cPassword" class="border-bottom" /><br /><br />
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    <label>New Password</label><br />
+
+                                    <input type="password" id="nPassword" name="nPassword" class="border-bottom" /><br /><br />
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    <label>Verify Password</label><br />
+
+                                    <input type="password" id="veriPassword" name="veriPassword" class="border-bottom" /><br /><br />
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    <label>Nick Name</label><br />
+
+                                    <input type="text" name="nName" id="nName" class="border-bottom" /><br /><br /><br />
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <button type="reset" class="borders white resetbutton">Reset</button>
+
+                                    <button type="submit" id="submit" class="borders white regbutton">Save</button>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </center>
+</body>
+<script>
+    $(function () {
+        $.get("action/member", {
+            action: "check_login_status",
+        }, function (result) {
+            if (result.login === "0") {
+                window.location.href = "login.html";
+            }
+        });
+    });
+
+    document.getElementById("submit").addEventListener("click", function (event) {
+        event.preventDefault();
+    });
+
+    $("#submit").click(function () {
+        $.post("action/member", {
+            action: "change_nickname",
+            current_password: $("#cPassword").val(),
+            nickname: $("#nName").val()
+        }, function (result) {
+            if (result.result === "success") {
+                if ($("#nPassword").val() !== "") {
+                    $.post("action/member", {
+                        action: "change_password",
+                        current_password: $("#cPassword").val(),
+                        new_password: $("#nPassword").val(),
+                        verify_password: $("#veriPassword").val()
+                    }, function (result) {
+                        if (result.result === "success") {
+                            alert("Update Member Data Succeed!");
+                            window.location.href = "index.html";
+                        } else if (result.result === "wrong_email_or_password") {
+                            alert("Current password wrong!");
+                        } else {
+                            alert("Update Member Data Fail!");
+                        }
+                    });
+                }
+            } else if (result.result === "wrong_email_or_password") {
+                alert("Current password not match!");
+            } else {
+                alert("Update Member Data Fail!");
+            }
+        });
+    });
+
+    function dump(obj) {
+        var out = '';
+        for (var i in obj) {
+            out += i + ": " + obj[i] + "\n";
+        }
+
+        alert(out);
+    }
+</script>
+</html>

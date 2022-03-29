@@ -1,0 +1,108 @@
+<html> <!-- CHANGE TO JSP, HTML FOR EASIER CODING -->
+
+    <head>
+        <title> Pyramid </title>
+
+        <link rel="stylesheet" type="text/css" href="css/styles.css" /> <!-- EXTERNAL STYLESHEET -->
+        <link rel="stylesheet" type="text/css" href="css/lightbox.css" /> <!-- EXTERNAL STYLESHEET -->
+
+        <!-- JQUERY LIB -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    </head>
+    <body>
+    <center>
+
+        <div class="webViewGrid">
+
+
+            <div class="naviBar">
+
+                <div class="navIcon">
+
+                    <!-- class: navIcon | Parent: naviBar | Type: Div, img tag container -->
+                    <a href="index.html" class="font-black">
+                        <img src="img/logo.png" width="50" /> <span class="navItem">Pyramid</span>
+                    </a>
+
+                </div>
+
+                <div class="navItem">
+                    <a href="" class="button font-black navItem">Item 1</a>
+                    <a href="" class="button font-black navItem">Item 2</a>
+                    <a href="" class="button font-black navItem">Item 3</a>
+                    <a href="" class="button font-black navItem">Item 4</a>
+                </div>
+
+                <div class="navUserItem">
+                    <a id="btnRegister" href="register.html" class="button font-black navItem">Register</a>
+                    <a id="btnLogin" href="login.html" class="button font-black navItem">Login</a>
+                    <a id="btnUserCenter" href="user.html" class="button font-black navItem">User Center</a>
+                    <a id="btnLogout" href="logout.html" class="button font-black navItem">Logout</a>
+                </div>
+
+            </div>
+
+
+
+            <div class="contentView">
+
+                <div class="content" id="productList">
+                </div>
+
+
+
+
+
+            </div>
+
+            <div class="footer">
+                <hr class="sep" />
+                copyright <br />
+                <a href="" class="button font-black">Item 1</a>
+                <a href="" class="button font-black">Item 2</a>
+                <a href="" class="button font-black">Item 3</a>
+                <a href="" class="button font-black">Item 4</a>
+            </div>
+
+
+
+
+        </div>
+
+    </center>
+</body>
+<script>
+    $(function () {
+        $.get("action/member", {
+            action: "check_login_status",
+        }, function (result) {
+            if (result.login === "1") {
+                $("#btnRegister").hide();
+                $("#btnLogin").hide();
+                $("#btnUserCenter").show();
+                $("#btnLogout").show();
+            } else {
+                $("#btnUserCenter").hide();
+                $("#btnLogout").hide();
+                $("#btnRegister").show();
+                $("#btnLogin").show();
+            }
+        });
+
+        var productsHTML = "";
+        for (var i = 1; i < 10; i++) {
+            $.get("action/product", {
+                action: "get_product",
+                product_id: i
+            }, function (result) {
+                if (result.result === "success") {
+                    productsHTML += "<a href=\"product.html?product_id=" + result.product_id + "\"><div class=\"displayItem hover-shadow\"><img src=\"" + result.product_photo_paths[0] + "\" width=\"150\"/><br /><span class=\"description font-black\">" + result.product_name + "</span></div></a>";
+                    $("#productList").html(productsHTML);
+                }
+            });
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,181 @@
+<html> <!-- CHANGE TO JSP, HTML FOR EASIER CODING -->
+
+    <head>
+        <title> <!-- INSERT TITLE EITHER DYNAMICALLY OR STATIC --> </title>
+
+        <link rel="stylesheet" type="text/css" href="css/styles.css" /> <!-- EXTERNAL STYLESHEET -->
+        <link rel="stylesheet" type="text/css" href="css/lightbox.css" /> <!-- EXTERNAL STYLESHEET -->
+
+
+        <!-- JQUERY LIB -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    </head>
+    <body>
+    <center>
+
+        <div class="webViewGrid">
+
+
+            <div class="naviBar">
+
+                <div class="navIcon">
+
+                    <!-- class: navIcon | Parent: naviBar | Type: Div, img tag container -->
+                    <a href="index.html" class="font-black">
+                        <img src="img/logo.png" width="50" /> <span class="navItem">Pyramid</span>
+                    </a>
+
+                </div>
+
+                <div class="navItem">
+                    <a href="" class="button font-black navItem">Item 1</a>
+                    <a href="" class="button font-black navItem">Item 2</a>
+                    <a href="" class="button font-black navItem">Item 3</a>
+                    <a href="" class="button font-black navItem">Item 4</a>
+                </div>
+
+                <div class="navUserItem">
+                    <a id="btnUserCenter" href="user.html" class="button font-black navItem">User Center</a>
+                    <a id="btnLogout" href="logout.html" class="button font-black navItem">Logout</a>
+                </div>
+
+            </div>
+
+
+
+            <div class="contentView">
+
+
+                <div class="cart">
+
+
+                    <div class="cartItems">
+
+                        <div class="cartItem border-top border-bottom title">
+
+                            <img src="img/logo.png" width="70" />
+                            <span>Product</span>
+                        </div>
+
+                        <div class="cartItem border-top border-bottom title">
+
+                            <img src="img/logo.png" width="70" />
+                            <span>Product</span>
+                        </div>
+
+                        <div class="cartItem border-top border-bottom title">
+
+                            <img src="img/logo.png" width="70" />
+                            <span>Product</span>
+                        </div>
+
+                        <div class="cartItem border-top border-bottom title">
+
+                            <img src="img/logo.png" width="70" />
+                            <span>Product</span>
+                        </div>
+
+
+                    </div>
+
+                    <div class="cartCheckOut">
+                        <form action="order.html" method="post">
+                            <label class="title">Subtotal</label><br />
+                            <label class="border-bottom title">999Pyramid</label><br /><br />
+                            Cupon Code
+                            <input type="text" name="cupon" class="border-bottom" />
+                            <br /><br />
+                            <hr class="sep" />
+                            <label class="title">Shipment</label><br />
+                            Ship to:
+                            <div class="borders">
+                                <input type="radio" name="address" />
+                                <textarea name="address" class="borderless" disabled style="resize:none;" rows="5">AddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresss</textarea>
+                            </div>
+                            <div class="borders">
+                                <input type="radio" name="address" />
+                                <textarea name="address" class="borderless" disabled style="resize:none;" rows="5">AddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresss</textarea>
+                            </div>
+                            <div class="borders">
+                                <input type="radio" name="address" />
+                                <textarea name="address" class="borderless" disabled style="resize:none;" rows="5">AddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresss</textarea>
+                            </div>
+                            <div class="borders">
+                                <input type="radio" name="address" />
+                                <textarea name="address" class="borderless" disabled style="resize:none;" rows="5">AddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresss</textarea>
+                            </div>
+                            <div class="borders">
+                                <input type="radio" name="address" />
+                                <textarea name="address" class="borderless" disabled style="resize:none;" rows="5">AddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresss</textarea>
+                            </div>
+                            <div class="borders">
+                                <input type="radio" name="address" />
+                                <textarea name="address" class="borderless" disabled style="resize:none;" rows="5">AddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresssAddresss</textarea>
+                            </div>
+                            <br /><br />
+                            <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+
+                                <!-- Identify your business so that you can collect the payments. -->
+                                <input type="hidden" name="business" value="raymondpp22030-facilitator@gmail.com">
+
+                                <!-- Specify a Buy Now button. -->
+                                <input type="hidden" name="cmd" value="_xclick">
+                                <input type="hidden" name="return" value="http://127.0.0.1/index.php">
+
+                                <!-- Specify details about the item that buyers will purchase. -->
+                                <input type="hidden" name="item_name" value="Pyramid-HK">
+                                <input type="hidden" name="amount" value="5.95">
+                                <input type="hidden" name="currency_code" value="HKD">
+
+                                <!-- Display the payment button. -->
+                                <input type="image" name="submit" border="0"
+                                       src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
+                                       alt="Buy Now">
+                                <img alt="" border="0" width="1" height="1"
+                                     src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
+
+                            </form>
+                            <hr class="sep" />
+                            <button type="submit" class="button borders white">Payment</button>
+                        </form>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+            <div class="footer">
+                <hr class="sep" />
+                copyright <br />
+                <a href="" class="button font-black">Item 1</a>
+                <a href="" class="button font-black">Item 2</a>
+                <a href="" class="button font-black">Item 3</a>
+                <a href="" class="button font-black">Item 4</a>
+            </div>
+
+
+
+
+        </div>
+
+    </center>
+
+
+
+</body>
+<script>
+    $(function () {
+        $.get("action/member", {
+            action: "check_login_status",
+        }, function (result) {
+            if (result.login === "0") {
+                window.location.href = "login.html";
+            }
+        });
+    });
+</script>
+</html>

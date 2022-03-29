@@ -1,0 +1,301 @@
+<html> <!-- CHANGE TO JSP, HTML FOR EASIER CODING -->
+
+    <head>
+        <title> Product </title>
+
+        <link rel="stylesheet" type="text/css" href="css/styles.css" /> <!-- EXTERNAL STYLESHEET -->
+        <link rel="stylesheet" type="text/css" href="lightbox.css" /> <!-- EXTERNAL STYLESHEET -->
+
+
+        <!-- JQUERY LIB -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    </head>
+    <body>
+    <center>
+
+        <div class="webViewGrid">
+
+
+            <div class="naviBar">
+
+                <div class="navIcon">
+
+                    <!-- class: navIcon | Parent: naviBar | Type: Div, img tag container -->
+                    <a href="index.html" class="font-black">
+                        <img src="img/logo.png" width="50" /> <span class="navItem">Pyramid</span>
+                    </a>
+
+                </div>
+
+                <div class="navItem">
+                    <a href="" class="button font-black navItem">Item 1</a>
+                    <a href="" class="button font-black navItem">Item 2</a>
+                    <a href="" class="button font-black navItem">Item 3</a>
+                    <a href="" class="button font-black navItem">Item 4</a>
+                </div>
+
+                <div class="navUserItem">
+                    <a id="btnRegister" href="register.html" class="button font-black navItem">Register</a>
+                    <a id="btnLogin" href="login.html" class="button font-black navItem">Login</a>
+                    <a id="btnUserCenter" href="user.html" class="button font-black navItem">User Center</a>
+                    <a id="btnLogout" href="logout.html" class="button font-black navItem">Logout</a>
+                </div>
+
+            </div>
+
+
+
+            <div class="contentView">
+
+
+                <div class="detail">
+
+                    <div class="imgDetail" id="productPhotos">
+                    </div>
+
+                    <div class="productDetail">
+                        <span class="title" id="productName">Product</span><br />
+                        <a href="shop.html" class="font-black border-bottom"></a>
+                        <br />
+                        <br />
+                        <div id="productDetail">
+                        </div>
+                        <hr class="sep" />
+                        <span class="title">Customer Review</span><br />
+                        <div id="productComments">
+                        </div>
+                        <hr class="sep" />
+                        Related: <div id="productTabs"></div>
+                    </div>
+
+                    <div class="commentDetail">
+                        <span class="title"><div id="productPrice"></div> Pyramid</span><br />
+                        <div id="amountStock"></div> left in stock.
+                        <br />Buy
+                        <br />
+                        <form action="" method="post">
+                            <input type="number" id="quantity" name="quantity" min="1" max="5" value="1" class="border-bottom" style="font-size:2em;"><br />
+                            <button class="button borders white" name="chkout" id="btnCheckOut">Check out</button><br />
+                            <button class="button borders white" name="cart" id="btnAddToCart">Add to cart</button>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer">
+                <hr class="sep" />
+                copyright <br />
+                <a href="" class="button font-black">Item 1</a>
+                <a href="" class="button font-black">Item 2</a>
+                <a href="" class="button font-black">Item 3</a>
+                <a href="" class="button font-black">Item 4</a>
+            </div>
+
+
+
+
+        </div>
+
+    </center>
+
+    <div id="myModal" class="modal">
+        <span class="close cursor" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <center>
+
+
+                <div id="productPhotoBlock">
+                </div>
+            </center>
+
+            <!-- Next/previous controls -->
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+            <!-- Caption text -->
+            <div class="caption-container">
+                <p id="caption"></p>
+            </div>
+
+            <!-- Thumbnail image controls -->
+            <div id="productPhotoBlock2">
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function openModal() {
+            document.getElementById('myModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = "none";
+        }
+
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("demo");
+            var captionText = document.getElementById("caption");
+            if (n > slides.length) {
+                slideIndex = 1
+            }
+            if (n < 1) {
+                slideIndex = slides.length
+            }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            captionText.innerHTML = dots[slideIndex - 1].alt;
+        }
+    </script>
+
+
+</body>
+<script>
+    var productID = 0;
+    var login = false;
+    $(function () {
+        productID = getURLParameter("product_id");
+        if (productID === null) {
+            window.location.href = "index.html";
+        }
+
+        $.get("action/product", {
+            action: "get_product",
+            product_id: productID
+        }, function (result) {
+            if (result.result === "success") {
+                document.title = result.product_name;
+                $("#productName").html(result.product_name);
+                $("#productDetail").html(result.product_detail);
+                $("#productPrice").html(result.product_price);
+                $("#amountStock").html(result.amount_stock);
+                var productPhotos = ""
+                var productPhotoBlock = ""
+                var productPhotoBlock2 = ""
+                for (var i = 0; i < result.product_photo_paths.length; i++) {
+                    productPhotos += "<img src=\"" + result.product_photo_paths[i] + "\" class=\"borders hover-shadow\" width=\"125\" onclick=\"openModal();currentSlide(1)\" />";
+                    productPhotoBlock += "<div class=\"mySlides\"><div class=\"numbertext\">" + i + " / " + result.product_photo_paths.length + "</div><img src=\"" + result.product_photo_paths[i] + "\" style=\"width:30%\"></div>";
+                    productPhotoBlock2 += "<div class=\"column\"><img class=\"demo\" src=\"" + result.product_photo_paths[i] + "\" onclick=\"currentSlide(" + i + ")\" style=\"width:30%\"></div>";
+                }
+                $("#productPhotos").html(productPhotos);
+                $("#productPhotoBlock").html(productPhotoBlock);
+                $("#productPhotoBlock2").html(productPhotoBlock2);
+                var productComments = "";
+                for (var i = 0; i < result.product_comments.length; i++) {
+                    productComments += "<span>" + result.product_comments[i][1] + ": " + result.product_comments[i][2] + "</span><br />";
+                }
+                $("#productComments").html(productComments);
+                var productTabs = "";
+                for (var i = 0; i < result.product_tab_names.length; i++) {
+                    if (result.product_tab_names[i] !== "null") {
+                        productTabs += result.product_tab_names[i] + ((i === (result.product_tab_names.length - 1)) ? "" : ", ");
+                    }
+                }
+                $("#productTabs").html(productTabs);
+            } else {
+                window.location.href = "index.html";
+            }
+        });
+
+        $.get("action/member", {
+            action: "check_login_status"
+        }, function (result) {
+            if (result.login === "1") {
+                $("#btnRegister").hide();
+                $("#btnLogin").hide();
+                $("#btnUserCenter").show();
+                $("#btnLogout").show();
+                login = true;
+            } else {
+                $("#btnUserCenter").hide();
+                $("#btnLogout").hide();
+                $("#btnRegister").show();
+                $("#btnLogin").show();
+                login = false;
+            }
+        });
+    });
+
+    $("#btnCheckOut").click(function () {
+        if (!login) {
+            alert("Please login first!");
+            window.location.href = "login.html";
+            return false;
+        }
+
+        $.post("action/cart", {
+            action: "add_cart_product",
+            product_id: productID,
+            product_type_id: 0,
+            quantity: $("#quantity").val()
+        }, function (result) {
+            if (result.result === "success") {
+                window.location.href = "checkout.html";
+            } else {
+                alert("Check Out Failed!");
+            }
+        });
+        return false;
+    });
+
+    $("#btnAddToCart").click(function () {
+        if (!login) {
+            alert("Please login first!");
+            window.location.href = "login.html";
+            return false;
+        }
+
+        $.post("action/cart", {
+            action: "add_cart_product",
+            product_id: productID,
+            product_type_id: 0,
+            quantity: $("#quantity").val()
+        }, function (result) {
+            if (result.result === "success") {
+                window.location.href = "cart.html";
+            } else {
+                alert("Add To Cart Failed!");
+            }
+        });
+        return false;
+    });
+
+    function getURLParameter(sParam) {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++)
+        {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam)
+            {
+                return sParameterName[1];
+            }
+        }
+        return null;
+    }
+</script>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Admin Center</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h3>Member</h3>
+        <form action="action/member" method="post">
+            Email:<br>
+            <input type="text" name="email"><br>
+            Password:<br>
+            <input type="password" name="password"><br>
+            Verify Password:<br>
+            <input type="password" name="verify_password"><br>
+            Nickname:<br>
+            <input type="text" name="nickname"><br>
+            Action:<br>
+            <select name="action">
+                <option value="register">Register</option>
+                <option value="login">Login</option>
+                <option value="change_password">Change password</option>
+                <option value="change_nickname">Change nickname</option>
+            </select><br><br>
+            <input type="submit" value="Submit">
+            <a href="action/member?action=logout">Logout</a>
+        </form>
+        
+        <hr />
+        
+        <h3>Product</h3>
+        <form action="action/product" method="get">
+            Member ID:<br>
+            <input type="text" name="member_id"><br>
+            Shop ID:<br>
+            <input type="text" name="shop_id"><br>
+            Product ID:<br>
+            <input type="text" name="product_id"><br>
+            Product Name:<br>
+            <input type="text" name="product_name"><br>
+            Product Introduction:<br>
+            <input type="text" name="product_introduction"><br>
+            Product Detail:<br>
+            <input type="text" name="product_detail"><br>
+            Product Price:<br>
+            <input type="text" name="product_price"><br>
+            Product Promotion ID:<br>
+            <input type="text" name="product_promotion_id"><br>
+            Product Promotion Name:<br>
+            <input type="text" name="product_promotion_name"><br>
+            Product Promotion Type:<br>
+            <input type="text" name="product_promotion_type"><br>
+            Product Promotion Amount<br>
+            <input type="text" name="product_promotion_amount"><br>
+            Amount Stock:<br>
+            <input type="text" name="amount_stock"><br>
+            Product Category ID:<br>
+            <input type="text" name="product_category_id"><br>
+            Product Category Name:<br>
+            <input type="text" name="product_category_name"><br>
+            Product Tab Names:<br>
+            <input type="text" name="product_tab_names"><br>
+            Product Type Names:<br>
+            <input type="text" name="product_type_names"><br>
+            Product Photo Paths:<br>
+            <input type="text" name="product_photo_paths"><br>
+            Product Details:<br>
+            <input type="text" name="product_comment_detail"><br>
+            Product Rating:<br>
+            <input type="text" name="product_comment_rating"><br>
+            Action:<br>
+            <select name="action">
+                <option value="create_product">create_product</option>
+                <option value="delete_product">delete_product</option>
+                <option value="get_product">get_product</option>
+                <option value="get_products">get_products</option>
+                <option value="get_all_products">get_all_products</option>
+                <option value="get_all_products_by_shop_id">get_all_products_by_shop_id</option>
+                <option value="get_all_products_by_product_category_id">get_all_products_by_product_category_id</option>
+                <option value="get_all_products_by_keyword">get_all_products_by_keyword</option>
+                <option value="get_all_products_by_tab">get_all_products_by_tab</option>
+                <option value="get_all_product_categories">get_all_product_categories</option>
+                <option value="update_product">update_product</option>
+                <option value="update_product_tab">update_product_tab</option>
+                <option value="update_product_type">update_product_type</option>
+                <option value="update_product_category">update_product_category</option>
+                <option value="add_product_comment">add_product_comment</option>
+                <option value="delete_product_comment">delete_product_comment</option>
+            </select><br><br>
+            <input type="submit" value="Submit">
+        </form>
+        
+        <hr />
+        
+        <h3>Shop</h3>
+        <form action="action/shop" method="get">
+            Member ID:<br>
+            <input type="text" name="member_id"><br>
+            Shop ID:<br>
+            <input type="text" name="shop_id"><br>
+            Shop Name:<br>
+            <input type="text" name="shop_name"><br>
+            Shop Introduction:<br>
+            <input type="text" name="shop_introduction"><br>
+            Shop Detail:<br>
+            <input type="text" name="shop_detail"><br>
+            Shop Category ID:<br>
+            <input type="text" name="shop_category_id"><br>
+            Contact number:<br>
+            <input type="text" name="contact_number"><br>
+            Contact Email:<br>
+            <input type="text" name="contact_email"><br>
+            Website:<br>
+            <input type="text" name="website"><br>
+            Shop Tab Names:<br>
+            <input type="text" name="shop_tab_names"><br>
+            Action:<br>
+            <select name="action">
+                <option value="create_shop">create_shop</option>
+                <option value="delete_shop">delete_shop</option>
+                <option value="get_shop_by_id">get_shop_by_id</option>
+                <option value="get_shop">get_shop</option>
+                <option value="get_shop_by_category">get_shop_by_category</option>
+                <option value="get_all_shop_categories">get_all_shop_categories</option>
+                <option value="get_shop_buyer_orders">get_shop_buyer_orders</option>
+            </select><br><br>
+            <input type="submit" value="Submit">
+        </form>
+        
+        <hr />
+        
+        <h3>Cart</h3>
+        <form action="action/cart" method="get">
+            Shipping Name:<br>
+            <input type="text" name="shipping_name"><br>
+            Shipping Contact Number:<br>
+            <input type="text" name="shipping_contact_number"><br>
+            Shipping Address:<br>
+            <input type="text" name="shipping_address"><br>
+            Product ID:<br>
+            <input type="text" name="product_id"><br>
+            Product Type ID:<br>
+            <input type="text" name="product_type_id"><br>
+            Quantity:<br>
+            <input type="text" name="quantity"><br>
+            Action:<br>
+            <select name="action">
+                <option value="checkout">checkout</option>
+                <option value="get_cart">get_cart</option>
+                <option value="update_cart">update_cart</option>
+                <option value="add_cart_product">add_cart_product</option>
+                <option value="remove_cart_product">remove_cart_product</option>
+            </select><br><br>
+            <input type="submit" value="Submit">
+        </form>
+        
+        <hr />
+        
+        <h3>Order</h3>
+        <form action="action/order" method="get">
+            Order ID:<br>
+            <input type="text" name="order_id"><br>
+            Member ID:<br>
+            <input type="text" name="member_id"><br>
+            Action:<br>
+            <select name="action">
+                <option value="delete_order">delete_order</option>
+                <option value="get_buyer_order">get_buyer_order</option>
+                <option value="get_orders_by_member_id">get_orders_by_member_id</option>
+            </select><br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>

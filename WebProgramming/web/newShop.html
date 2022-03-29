@@ -1,0 +1,179 @@
+<html> <!-- CHANGE TO JSP, HTML FOR EASIER CODING -->
+
+    <head>
+        <title> <!-- INSERT TITLE EITHER DYNAMICALLY OR STATIC --> </title>
+
+        <link rel="stylesheet" type="text/css" href="css/styles.css" /> <!-- EXTERNAL STYLESHEET -->
+
+        <!-- JQUERY LIB -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    </head>
+    <body>
+    <center>
+
+        <div class="webViewGrid">
+
+
+            <div class="formGrid">
+                <div class="form">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <a href="index.html" class="font-black">
+                            <img src="img/logo.png" width="150"/><br />
+                            <label class="title">Start new shop</label>
+                        </a>
+                        <hr class="sep" /><br />
+                        <table class="regTable">
+                            <tr>
+                                <td>
+                                    <label>Shop Name</label><br />
+                                    <input type="text" name="shopName" id="shopName" class="border-bottom" /><br /><br />
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <label>Introduction</label><br />
+
+                                    <textarea rows="3" name="introduction" id="introduction" class="borders" style="resize:none;" ></textarea><br /><br />
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    <label>More Information</label><br />
+
+                                    <textarea rows="5" name="info" id="detail" class="borders" style="resize:none;" ></textarea><br /><br />
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    <label>Category</label><br />
+
+                                    <select name="category" class="border-bottom white font-black" style="background-color:none" id="shopCategory">
+                                    </select><br /><br />
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    <label>Contact Email</label><br />
+
+                                    <input type="email" name="contactEmail" id="contactEmail" class="border-bottom" /><br /><br />
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    <label>Contact Tel</label><br />
+
+                                    <input type="tel" name="contactTel" id="contactTel" class="border-bottom" /><br /><br />
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    <label>Associate Website</label><br />
+
+                                    <input type="url" name="website" id="website" class="border-bottom" /><br /><br />
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    <label>Tabs (use "," to split it.)</label><br />
+
+                                    <input type="text" name="tabs" id="tabs" class="border-bottom" /><br /><br />
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <button type="reset" class="borders white resetbutton">Reset</button>
+
+                                    <button type="submit" id="submit" class="borders white regbutton">Create</button>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </center>
+</body>
+<script>
+    $(function () {
+        $.get("action/member", {
+            action: "check_login_status",
+        }, function (result) {
+            if (result.login === "0") {
+                window.location.href = "login.html";
+            } else if (result.has_shop === "1") {
+                window.location.href = "index.html";
+            }
+        });
+        
+        $.get("action/shop", {
+            action: "get_all_shop_categories",
+        }, function (result) {
+            if (result.result === "success") {
+                var strHtml = "";
+                for(var i = 0; i < result.shop_categories.length; i++) {
+                    strHtml += "<option value=\"" + result.shop_categories[i].shop_category_id + "\">" + result.shop_categories[i].shop_category_name + "</option>"
+                }
+                $("#shopCategory").html(strHtml);
+            } else {
+                window.location.href = "index.html";
+            }
+        });
+    });
+    
+    $("#submit").click(function () {
+        $.post("action/shop", {
+            action: "create_shop",
+            shop_name: $("#shopName").val(),
+            shop_introduction: $("#introduction").val(),
+            shop_detail: $("#detail").val(),
+            shop_category_id: $("#shopCategory option:selected").val(),
+            contact_number: $("#contactTel").val(),
+            contact_email: $("#contactEmail").val(),
+            website: $("#website").val(),
+            shop_tab_names: $("#tabs").val()
+        }, function (result) {
+            if (result.result === "success") {
+                alert("Create shop succeed!");
+                window.location.href = "index.html";
+            } else if (result.result === "already_has_shop") {
+                alert("You created shop yet!");
+            } else if (result.result === "input_data_not_match") {
+                alert("Your input data not match, please fill in all blanks!")
+            } else if (result.result === "shop_name_has_been_register") {
+                alert("The shop name has been registed!");
+            } else {
+                alert("Create shop failed!");
+            }
+        });
+        return false;
+    });
+</script>
+</html>

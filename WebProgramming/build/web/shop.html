@@ -1,0 +1,177 @@
+<html> <!-- CHANGE TO JSP, HTML FOR EASIER CODING -->
+
+    <head>
+        <title> <!-- INSERT TITLE EITHER DYNAMICALLY OR STATIC --> </title>
+
+        <link rel="stylesheet" type="text/css" href="css/styles.css" /> <!-- EXTERNAL STYLESHEET -->
+        <link rel="stylesheet" type="text/css" href="css/lightbox.css" /> <!-- EXTERNAL STYLESHEET -->
+
+
+        <!-- JQUERY LIB -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    </head>
+    <body>
+    <center>
+
+        <div class="webViewGrid">
+
+
+            <div class="naviBar">
+
+                <div class="navIcon">
+
+                    <!-- class: navIcon | Parent: naviBar | Type: Div, img tag container -->
+                    <a href="index.html" class="font-black">
+                        <img src="img/logo.png" width="50" /> <span class="navItem">Pyramid</span>
+                    </a>
+
+                </div>
+
+                <div class="navItem">
+                    <a href="" class="button font-black navItem">Item 1</a>
+                    <a href="" class="button font-black navItem">Item 2</a>
+                    <a href="" class="button font-black navItem">Item 3</a>
+                    <a href="" class="button font-black navItem">Item 4</a>
+                </div>
+
+                <div class="navUserItem">
+                    <a id="btnRegister" href="register.html" class="button font-black navItem">Register</a>
+                    <a id="btnLogin" href="login.html" class="button font-black navItem">Login</a>
+                    <a id="btnUserCenter" href="user.html" class="button font-black navItem">User Center</a>
+                    <a id="btnLogout" href="logout.html" class="button font-black navItem">Logout</a>
+                </div>
+
+            </div>
+
+
+
+            <div class="contentView">
+
+
+                <div class="shop">
+
+
+                    <div class="shopDetail">
+                        <span class="title">Shop A</span><br />
+                        Rating<br /><br />
+                        Description
+                        <hr class="sep" />
+                        <span class="title">Products</span> <a href="products.html" class="button borders font-black white">Edit</a><br /><br />
+                        <div class="content">
+
+                            <!-- ITEM DISPLAY -->
+                            <a href="product.html">
+                                <div class="displayItem hover-shadow">
+                                    <img src="img/logo.png" width="150"/><br />
+                                    <span class="description font-black">This is an image</span>
+                                </div>
+                            </a>
+
+                            <a href="product.html">
+                                <div class="displayItem hover-shadow">
+                                    <img src="img/logo.png" width="150"/><br />
+                                    <span class="description font-black">This is an image</span>
+                                </div>
+                            </a>
+
+                            <a href="product.html">
+                                <div class="displayItem hover-shadow">
+                                    <img src="img/logo.png" width="150"/><br />
+                                    <span class="description font-black">This is an image</span>
+                                </div>
+                            </a>
+
+
+                            <a href="product.html">
+                                <div class="displayItem hover-shadow">
+                                    <img src="img/logo.png" width="150"/><br />
+                                    <span class="description font-black">This is an image</span>
+                                </div>
+                            </a>
+
+
+                            <a href="product.html">
+                                <div class="displayItem hover-shadow">
+                                    <img src="img/logo.png" width="150"/><br />
+                                    <span class="description font-black">This is an image</span>
+                                </div>
+                            </a>
+
+
+                            <a href="product.html">
+                                <div class="displayItem hover-shadow">
+                                    <img src="img/logo.png" width="150"/><br />
+                                    <span class="description font-black">This is an image</span>
+                                </div>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <div class="shopMoreDetail">
+
+                        <span class="border-bottom title">More Information</span><br />
+                        <span>sasdasfgfksagksagdkjgsakdgaskjdgdavdsadgsagdkasdkdas</span>
+
+                        <br /><br />
+
+                        <span class="border-bottom title">Category</span><br />
+                        <span>Something</span>
+
+                        <br /><br />
+                        <span class="border-bottom title">Contacts</span><br />
+                        <span id="ownerDetail">Owner: Someone</span><br />
+                        <span id="telDetail">Tel: </span><br />
+                        <span id="emailDetail">Email: </span><br />
+                        <span id="addressDetail">Address: </span><br />
+                        <span id="webDetail">Website: </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer">
+                <hr class="sep" />
+                copyright <br />
+                <a href="" class="button font-black">Item 1</a>
+                <a href="" class="button font-black">Item 2</a>
+                <a href="" class="button font-black">Item 3</a>
+                <a href="" class="button font-black">Item 4</a>
+            </div>
+
+
+
+
+        </div>
+
+    </center>
+
+
+
+
+</body>
+<script>
+    $(function () {
+        $.get("action/member", {
+            action: "check_login_status",
+        }, function (result) {
+            if (result.login === "1") {
+                $("#btnRegister").hide();
+                $("#btnLogin").hide();
+                $("#btnUserCenter").show();
+                $("#btnLogout").show();
+            } else {
+                $("#btnUserCenter").hide();
+                $("#btnLogout").hide();
+                $("#btnRegister").show();
+                $("#btnLogin").show();
+            }
+        });
+    });
+</script>
+</html>

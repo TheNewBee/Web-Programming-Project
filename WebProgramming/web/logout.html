@@ -1,0 +1,96 @@
+<html> <!-- CHANGE TO JSP, HTML FOR EASIER CODING -->
+
+    <head>
+        <title> Logout </title>
+
+        <link rel="stylesheet" type="text/css" href="css/styles.css" /> <!-- EXTERNAL STYLESHEET -->
+
+        <!-- JQUERY LIB -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    </head>
+    <body>
+    <center>
+
+        <div class="webViewGrid">
+
+            <!-- NOT USED IN LOGIN
+                  <div class="naviBar">
+            
+                    <div class="navIcon">
+            
+                      <! class: navIcon | Parent: naviBar | Type: Div, img tag container >
+                      <img src="img/logo.png" width="50" />
+            
+                    </div>
+            
+                    <div class="navItem">
+            
+                    </div>
+            
+                    <div class="navUserItem">
+            
+                    </div>
+            
+                  </div>
+            -->
+
+            <div class="formGrid">
+                <div class="form">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <a href="index.html" class="font-black">
+                            <img src="img/logo.png" width="150"/><br />
+                            <label class="title">Pyramid</label>
+                        </a>
+                        <hr class="sep" /><br /><br />
+                        <button type="submit" id="submit" class="borders white button">Logout</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </center>
+</body>
+<script>
+    $(function () {
+        $.get("action/member", {
+            action: "check_login_status",
+        }, function (result) {
+            if (result.login === "0") {
+                window.location.href = "login.html";
+            }
+        });
+    });
+
+    document.getElementById("submit").addEventListener("click", function (event) {
+        event.preventDefault();
+    });
+
+    $("#submit").click(function () {
+        $.post("action/member", {
+            action: "logout",
+        }, function (result) {
+            if (result.result === "success") {
+                alert("Logout Succeed!");
+                window.location.href = "index.html";
+            } else if (result.result === "no_login") {
+                alert("You has not login yet!");
+                window.location.href = "login.html";
+            } else {
+                alert("Logout Fail!");
+                window.location.href = "index.html";
+            }
+        });
+    });
+
+    function dump(obj) {
+        var out = '';
+        for (var i in obj) {
+            out += i + ": " + obj[i] + "\n";
+        }
+
+        alert(out);
+    }
+</script>
+</html>

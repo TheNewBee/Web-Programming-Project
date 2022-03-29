@@ -1,0 +1,303 @@
+/* Variable Store */
+:root{
+
+  --webViewGirdTempColumns: auto;         /* Define Grid Layout Property: # of Column */
+  --webViewGridTempRows: 20% 60% auto;   /* Define Grid Layout Property: # of Row */
+
+  --navColumn: 1/2;                       /* Define Grid Layout Property: Column Placement in Parent */
+  --navRow: 1/2;                          /* Define Grid Layout Property: Row Placement in Parent. */
+  --navTempColumns: 10% auto 30%;         /* Define Grid Layout Property: # of Column */
+  --navTempRows: auto;                    /* Define Grid Layout Property: # of Row */
+
+  --navIconColumn: 1/2;                   /* Define Grid Layout Property: Column Placement in Parent */
+  --navIconRow: 1/2;                      /* Define Grid Layout Property: Row Placement in Parent */
+
+  --contentColumn: 1/2;                   /* Define Grid Layout Property: Column Placement in Parent */
+  --contentRow: 2/3;                      /* Define Grid Layout Property: Row Placement in Parent */
+  --contentTempColumns: auto auto auto;
+  --contentTempRows: auto;
+
+  --detailTempColumns: auto 50% auto;
+  --detailTempRows: auto;
+
+  --imgDetailColumn: 1/2;
+  --imgDetailRow: 1/2;
+
+  --productDetailColumn: 2/3;
+  --productDetailRow: 1/2;
+
+  --commentDetailColumn: 3/4;
+  --commentDetailRow: 1/2;
+
+  --cartTempColumns: auto 30%;
+  --cartTempRows: auto;
+
+  --cartItemsColumn: 1/2;
+  --cartItemsRow: 1/2;
+
+  --cartCheckOutColumn: 2/3;
+  --cartCheckOutRow: 1/2;
+
+  --footerColumn: 1/2;
+  --footerRow: 3/4;
+
+}
+
+@supports (zoom:2) {
+	.checkbox{
+	zoom: 1.5;
+	}
+}
+@supports not (zoom:2) {
+	.checkbox{
+		transform: scale(1.5);
+		margin: 15px;
+	}
+}
+
+body{
+  margin: 0px;
+  padding: 0px;
+  font-family: Verdana;
+}
+
+
+/* Define Entire Website View Grid */
+.webViewGrid{
+  display: grid;
+  grid-template-columns: var(--webViewGirdTempColumn);
+  grid-template-rows: var(--webViewGridTempRows);
+}
+
+/* Navigation Bar on Website View. Child, Parent: .webViewGrid */
+.naviBar{
+  grid-column: var(--navColumn);
+  grid-row: var(--navRow);
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: var(--navTempColumns);
+  grid-template-rows: var(--navTempRows);
+  margin-top: 1.5vh;
+}
+
+.navIcon{
+  grid-column: var(--navIconColumn);
+  grid-row: var(--navIconRow);
+}
+
+.contentView{
+  grid-column: var(--contentColumn);
+  grid-row: var(--contentRow);
+  margin-top: 5vh;
+}
+
+.content{
+  display: grid;
+  grid-template-columns: var(--contentTempColumns);
+  grid-template-rows: var(--contentTempRows);
+  grid-column-gap: 1%;
+  grid-row-gap: 1em;
+  width: 97%;
+}
+
+.detail{
+  display: grid;
+  grid-template-columns: var(--detailTempColumns);
+  grid-template-rows: var(--detailTempRows);
+  grid-column-gap: 10%;
+  max-width: 70%;
+  margin-top: 7vh;
+}
+
+.shop{
+  display: grid;
+  grid-template-columns: auto 30%;
+  grid-template-rows: auto;
+  grid-column-gap: 3%
+}
+
+.shopDetail{
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.shopMoreDetail{
+  grid-column: 2/3;
+  grid-row: 1/2;
+  word-break: break-all;
+}
+
+.imgDetail{
+  grid-column: var(--imgDetailColumn);
+  grid-row: var(--imgDetailRow);
+}
+.imgDetail img{
+  margin-bottom: 2vh;
+}
+.productDetail{
+  grid-column: var(--productDetailColumn);
+  grid-row: var(--productDetailRow);
+}
+.commentDetail{
+  grid-column: var(--commentDetailColumn);
+  grid-row: var(--commentDetailRow);
+}
+
+.cart{
+  display: grid;
+  grid-template-columns: var(--cartTempColumns);
+  grid-template-rows: var(--cartTempRows);
+  margin-top: 7vh;
+}
+
+.cartItems{
+  grid-column: var(--cartItemsColumn);
+  grid-row: var(--cartItemsRow);
+}
+
+.cartItem{
+  margin-bottom: 1vh;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+}
+
+.cartCheckOut{
+  grid-column: var(--cartCheckOutColumn);
+  grid-row: var(--cartCheckOutRow);
+}
+
+.footer{
+  grid-column: var(--footerColumn);
+  grid-row: var(--footerRow);
+  padding-bottom: 1em;
+  margin-top: 1em;
+}
+
+.displayItem{
+  border: 1px solid black;
+  padding-top: 1em;
+  padding-bottom: 2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.sep{
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.formGrid{
+  --webViewGirdTempRows: 100%;
+  grid-column: var(--webViewGridTempColumns);
+  grid-row: var(--webViewGirdTempRows);
+
+}
+
+.form{
+  margin-top: 15vh;
+  margin-bottom: 25vh;
+  padding: 3em;
+  border: 1px solid grey;
+  width: 40%;
+  height: auto;
+}
+
+.title{
+  font-size: 2em;
+}
+
+table{
+  text-align: center;
+}
+
+.formInput{
+  background-color: white;
+
+}
+
+.border-left{
+  border: none;
+  border-left: 1px solid black !important;
+}
+.border-top{
+  border: none;
+  border-top: 1px solid black !important;
+}
+.border-right{
+  border: none;
+  border-right: 1px solid black !important;
+}
+.border-bottom{
+  border: none;
+  border-bottom: 1px solid black !important;
+}
+.borders{
+  border: 1px solid black !important;
+}
+.borderless{
+  border: none;
+}
+
+.white{
+  background-color: white;
+  color: black;
+}
+
+.button{
+  font-size: 1.2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  padding-top: 0.15em;
+  padding-bottom: 0.15em;
+  text-decoration: none;
+}
+.button:hover{
+  background-color: lightblue;
+  color: black;
+}
+
+
+.regbutton{
+  font-size: 1.2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+.regbutton:hover{
+  background-color: lightgreen;
+  color: black;
+}
+
+.resetbutton{
+  font-size: 1.2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+.resetbutton:hover{
+  background-color: red;
+  color: black;
+}
+
+.font-black{
+  color: black;
+}
+.font-black:visited{
+  color:black;
+}
+
+.navItem{
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
+
+.regTable input{
+  text-align: center;
+}
+
+a{
+  text-decoration: none;
+}
